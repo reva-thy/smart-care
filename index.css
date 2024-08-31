@@ -1,0 +1,21 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* Align items vertically inside the container */
+    justify-content: center;
+    align-items: center;
+}
+
+.drop-down{
+    margin-bottom: 15px;
+}
+
+.btn-wrapper{
+}

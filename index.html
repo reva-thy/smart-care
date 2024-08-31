@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMARTCARE - Healthcare Portal</title>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('im.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 300px;
+        }
+
+        .container h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .drop-down {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            background-color: #fff;
+            color: #000;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .btn-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn-wrapper button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            opacity: 0.5; /* Disabled by default */
+            pointer-events: none; /* Disabled by default */
+        }
+
+        .btn-wrapper button a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-wrapper button:hover {
+            background-color: #218838;
+        }
+
+        .btn-wrapper button.recruitment-btn {
+            background-color: #007bff;
+        }
+
+        .btn-wrapper button.recruitment-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="abc.png" width="150"/>
+        <h1>SMARTCARE</h1>
+        <select class="drop-down" id="hospital-select">
+            <option value="">Select Your Hospital</option>
+            <option value="hospital-a">Hospital A</option>
+            <option value="hospital-b">Hospital B</option>
+            <option value="hospital-c">Hospital C</option>
+            <option value="hospital-d">Hospital D</option>
+        </select>
+
+        <div class="btn-wrapper">
+            <button id="staff-login-btn"><a href="staff-login.html">Staff Login</a></button>
+            <button  id="recruitment-btn"><a href="recruitment_login.html">Recruitment</a></button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('hospital-select').addEventListener('change', function() {
+            const selectedValue = this.value;
+            const staffLoginBtn = document.getElementById('staff-login-btn');
+            const recruitmentBtn = document.getElementById('recruitment-btn');
+            
+            if (selectedValue) {
+                staffLoginBtn.style.opacity = '1';
+                staffLoginBtn.style.pointerEvents = 'auto';
+                recruitmentBtn.style.opacity = '1';
+                recruitmentBtn.style.pointerEvents = 'auto';
+            } else {
+                staffLoginBtn.style.opacity = '0.5';
+                staffLoginBtn.style.pointerEvents = 'none';
+                recruitmentBtn.style.opacity = '0.5';
+                recruitmentBtn.style.pointerEvents = 'none';
+            }
+        });
+    </script>
+    
+</body>
+</html>

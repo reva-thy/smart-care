@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitee Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f7ff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .profile-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+        }
+        h1 {
+            color: #0099ff;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            font-size: 20px;
+            color: #2e54a7;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea,
+        .form-group input[type="date"],
+        .form-group input[type="time"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group input[type="file"] {
+            margin-top: 5px;
+        }
+        .form-group button {
+            padding: 10px 15px;
+            background-color: #0099ff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .form-group button:hover {
+            background-color: #007acc;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+        .header{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="header">
+            <h1>Recruitee Profile</h1>
+            <img src="abc.png" width="150"/>
+        </div>
+        
+
+        <!-- Medical Skill Questionnaire -->
+        <div class="section" id="medicalSkills">
+            <h2>Medical Skills Questionnaire</h2>
+            <form id="skillsForm">
+                <div class="form-group">
+                    <label for="skill1">Skill 1:</label>
+                    <input type="text" id="skill1" name="skill1" required>
+                </div>
+                <div class="form-group">
+                    <label for="skill2">Skill 2:</label>
+                    <input type="text" id="skill2" name="skill2" required>
+                </div>
+                <div class="form-group">
+                    <label for="skill3">Skill 3:</label>
+                    <input type="text" id="skill3" name="skill3" required>
+                </div>
+                <button type="submit">Submit Skills</button>
+            </form>
+            <div id="skillsError" class="error"></div>
+        </div>
+
+        <!-- Recruitment Test -->
+        <div class="section" id="recruitmentTest">
+            <h2>Recruitment Test</h2>
+            <p>Based on the current recruitment requirements, please complete the following test:</p>
+            <form id="testForm">
+                <div class="form-group">
+                    <label for="testQuestion1">Test Question 1:</label>
+                    <input type="text" id="testQuestion1" name="testQuestion1" required>
+                </div>
+                <div class="form-group">
+                    <label for="testQuestion2">Test Question 2:</label>
+                    <input type="text" id="testQuestion2" name="testQuestion2" required>
+                </div>
+                <button type="submit">Submit Test</button>
+            </form>
+            <div id="testError" class="error"></div>
+        </div>
+
+        <!-- Certificate Upload -->
+        <div class="section" id="certificateUpload">
+            <h2>Upload Certificates</h2>
+            <form id="uploadForm">
+                <div class="form-group">
+                    <label for="certificate">Upload Certificate:</label>
+                    <input type="file" id="certificate" name="certificate" accept=".pdf, .doc, .docx" required>
+                </div>
+                <button type="submit">Upload Certificate</button>
+            </form>
+            <div id="uploadError" class="error"></div>
+        </div>
+
+        <!-- Online Interview Appointment -->
+        <div class="section" id="interviewAppointment">
+            <h2>Schedule Online Interview</h2>
+            <form id="appointmentForm">
+                <div class="form-group">
+                    <label for="interviewDate">Select Date:</label>
+                    <input type="date" id="interviewDate" name="interviewDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="interviewTime">Select Time:</label>
+                    <input type="time" id="interviewTime" name="interviewTime" required>
+                </div>
+                <button type="submit">Schedule Interview</button>
+            </form>
+            <div id="appointmentError" class="error"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('skillsForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const skill1 = document.getElementById('skill1').value;
+            const skill2 = document.getElementById('skill2').value;
+            const skill3 = document.getElementById('skill3').value;
+
+            // Placeholder for submitting skills
+            console.log("Skills submitted:", skill1, skill2, skill3);
+            alert("Skills submitted successfully!");
+        });
+
+        document.getElementById('testForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const testQuestion1 = document.getElementById('testQuestion1').value;
+            const testQuestion2 = document.getElementById('testQuestion2').value;
+
+            // Placeholder for submitting test
+            console.log("Test submitted:", testQuestion1, testQuestion2);
+            alert("Test submitted successfully!");
+        });
+
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const certificate = document.getElementById('certificate').files[0];
+
+            if (!certificate) {
+                document.getElementById('uploadError').textContent = "Please select a certificate to upload.";
+                return;
+            }
+
+            // Placeholder for uploading certificate
+            console.log("Certificate uploaded:", certificate.name);
+            alert("Certificate uploaded successfully!");
+        });
+
+        document.getElementById('appointmentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const interviewDate = document.getElementById('interviewDate').value;
+            const interviewTime = document.getElementById('interviewTime').value;
+
+            // Placeholder for scheduling appointment
+            console.log("Interview scheduled on:", interviewDate, "at", interviewTime);
+            alert("Interview scheduled successfully!");
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Worker Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #66ccff, #0099ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .login-container {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+            font-size: 26px;
+            color: #0099ff;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #0099ff;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .login-container button:hover {
+            background-color: #6b96b3;
+        }
+        .login-container a {
+            display: block;
+            margin-top: 15px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .login-container a:hover {
+            text-decoration: underline;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .logo-container {
+            margin-bottom: 20px;
+        }
+        .logo-container img {
+            width: 160px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-container">
+            <img src="abc.png" alt="Healthcare Logo"/>
+        </div>
+        <h2>Healthcare Worker Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <a href="#">Forgot Password?</a>
+        <div id="errorMessage" class="error"></div>
+    </div>
+
+    <script>
+        // Set predefined username and password
+        const predefinedUsername = "user123";
+        const predefinedPassword = "pass123";
+
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get the input values
+            const enteredUsername = document.getElementById("username").value;
+            const enteredPassword = document.getElementById("password").value;
+
+            // Check if the entered credentials match the predefined ones
+            if (enteredUsername === predefinedUsername && enteredPassword === predefinedPassword) {
+                alert("Login successful!");
+                // Redirect to the user's profile page
+                window.location.href = "profile.html";
+            } else {
+                document.getElementById("errorMessage").textContent = "Invalid username or password.";
+            }
+        });
+    </script>
+</body>
+</html>

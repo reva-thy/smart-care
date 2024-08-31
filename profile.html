@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f7ff;
+            color: #333;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+        .profile-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .profile-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .profile-header h2 {
+            margin: 0;
+            font-size: 28px;
+            color: #2e54a7;
+        }
+        .profile-header a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .widget {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            width: calc(50% - 10px);
+            box-sizing: border-box;
+        }
+        .widget h3 {
+            margin-top: 0;
+            color: #2e54a7;
+        }
+        #calendar {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .meditation-widget iframe {
+            width: 100%;
+            height: 180px;
+            border-radius: 8px;
+            border: none;
+            margin-top: 10px;
+        }
+        .graph-container {
+            margin-top: 10px;
+            width: 100%;
+            height: 100px;
+        }
+        .meditation-widget button {
+            background-color: #2e54a7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .meditation-widget button:hover {
+            background-color: #25458b;
+        }
+        .logo{
+            margin-right: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h2>Welcome, User123!</h2>
+            <img class="logo" src="abc.png" width="150"/>
+            <a href="index.html">Log Out</a>
+        </div>
+
+        <!-- Meditation Widget -->
+        <div class="widget meditation-widget">
+            <h3>Meditation</h3>
+            <button onclick="loadRandomVideo()">Load Meditation Video</button>
+            <iframe id="meditation-video" src=""></iframe>
+            <div class="graph-container">
+                <canvas id="meditationGraph"></canvas>
+            </div>
+        </div>
+
+        <!-- Calendar Widget -->
+        <div class="widget calendar-widget">
+            <h3>Calendar</h3>
+            <div id="calendar"></div>
+        </div>
+
+        <!-- Electronic Health Records Widget -->
+        <div class="widget ehr-widget">
+            <h3>Electronic Health Records</h3>
+            <p>Access your health records if you're a patient in any of our partner hospitals.</p>
+            <a href="ehr.html">View EHR</a>
+        </div>
+
+        <!-- Monthly Burnout Test Widget -->
+        <div class="widget burnout-widget">
+            <h3>Monthly Burnout Test</h3>
+            <p>Take this test to assess your burnout levels.</p>
+            <form id="burnout-test-form" onsubmit="handleBurnoutTest(event)">
+                <label for="stress-level">Stress Level (1-10):</label>
+                <input type="number" id="stress-level" name="stress-level" min="1" max="10" required>
+                <br>
+                <label for="sleep-hours">Hours of Sleep per Night:</label>
+                <input type="number" id="sleep-hours" name="sleep-hours" min="0" max="24" required>
+                <br>
+                <button type="submit">Submit Test</button>
+            </form>
+            <p id="burnout-status"></p>
+        </div>
+
+        <!-- Peer Pressure Group Widget -->
+        <div class="widget peer-group-widget">
+            <h3>Peer Pressure Group</h3>
+            <p>Join a group to share experiences and relieve stress.</p>
+            <div class="dropdown">
+                <button onclick="toggleDropdown()">Join Group</button>
+                <div id="dropdown-content" style="display: none;">
+                    <a href="group_anxiety_stress.html">Anxiety and Stress</a><br>
+                    <a href="group_burnout_compassion.html">Burnout and Compassion Fatigue</a><br>
+                    <a href="group_imposter_syndrome.html">Imposter Syndrome</a><br>
+                    <a href="group_depression_substance.html">Depression and Substance Abuse</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Anonymous Grievances Portal Widget -->
+        <div class="widget grievances-widget">
+            <h3>Anonymous Grievances Portal</h3>
+            <p>Submit your grievances anonymously.</p>
+            <form id="grievances-form" onsubmit="submitGrievance(event)">
+                <textarea id="grievance-text" name="grievance-text" rows="4" cols="50" placeholder="Enter your grievance..." required></textarea>
+                <br>
+                <button type="submit">Submit Grievance</button>
+            </form>
+            <p id="grievance-status"></p>
+        </div>
+        <div class="widget call-widget">
+            <h3>Call a Psychologist</h3>
+            <p>If you need immediate support, you can reach out to one of the psychologists listed below:</p>
+            <a href="tel:+1234567890">Dr. Jane Doe: +1 (234) 567-890</a><br>
+            <a href="tel:+0987654321">Dr. John Smith: +1 (987) 654-321</a>
+            <!-- Add more contacts if needed -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                editable: true,
+                selectable: true,
+                events: [],
+                select: function(info) {
+                    var title = prompt('Enter Event Title:');
+                    var eventData;
+                    if (title) {
+                        eventData = {
+                            title: title,
+                            start: info.startStr,
+                            end: info.endStr
+                        };
+                        calendar.addEvent(eventData);
+                    }
+                    calendar.unselect();
+                },
+                eventClick: function(info) {
+                    if (confirm("Are you sure you want to delete this event?")) {
+                        info.event.remove();
+                    }
+                }
+            });
+
+            calendar.render();
+        });
+
+        const videos = [
+            "https://www.youtube.com/embed/6p_yaNFSYao", 
+            "https://www.youtube.com/embed/O-6f5wQXSu8",
+            "https://www.youtube.com/embed/inpok4MKVLM"
+        ];
+
+        let videoViews = [0, 0, 0];
+
+        function loadRandomVideo() {
+            const randomIndex = Math.floor(Math.random() * videos.length);
+            document.getElementById('meditation-video').src = videos[randomIndex];
+            videoViews[randomIndex]++;
+            updateMeditationGraph();
+        }
+
+        function updateMeditationGraph() {
+            const ctx = document.getElementById('meditationGraph').getContext('2d');
+            const data = {
+                labels: ['Video 1', 'Video 2', 'Video 3'],
+                datasets: [{
+                    label: 'Number of Views',
+                    data: videoViews,
+                    backgroundColor: ['#007bff', '#28a745', '#dc3545']
+                }]
+            };
+            new Chart(ctx, {
+                type: 'bar',
+                data: data
+            });
+        }
+
+        const script = document.createElement('script');
+        script.src = "https://cdn.jsdelivr.net/npm/chart.js";
+        document.head.appendChild(script);
+
+        function handleBurnoutTest(event) {
+    event.preventDefault();
+    const stressLevel = document.getElementById('stress-level').value;
+    const sleepHours = document.getElementById('sleep-hours').value;
+    const currentMonth = new Date().getMonth();
+
+    if (stressLevel > 7 || sleepHours < 6) {
+        document.getElementById('burnout-status').innerText = "High risk of burnout detected. Please take care!";
+    } else {
+        document.getElementById('burnout-status').innerText = "Thank you for completing the test.";
+    }
+
+    localStorage.setItem(`burnout-test-${currentMonth}`, 'completed');
+}
+
+
+
+        function submitGrievance(event) {
+            event.preventDefault();
+            const grievanceText = document.getElementById('grievance-text').value;
+
+            console.log("Grievance submitted:", grievanceText);
+
+            document.getElementById('grievance-text').value = '';
+            document.getElementById('grievance-status').innerText = "Grievance submitted successfully.";
+        }
+        function toggleDropdown() {
+        const dropdownContent = document.getElementById('dropdown-content');
+        if (dropdownContent.style.display === 'none' || dropdownContent.style.display === '') {
+            dropdownContent.style.display = 'block';
+        } else {
+            dropdownContent.style.display = 'none';
+        }
+    }
+    </script>
+</body>
+</html>
+

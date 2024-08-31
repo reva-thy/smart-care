@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Recruitment Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #66ccff, #0099ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+        .container h2 {
+            margin-bottom: 20px;
+            font-size: 26px;
+            color: #0099ff;
+        }
+        .container input[type="text"],
+        .container input[type="password"],
+        .container input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        .container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #0099ff;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .container button:hover {
+            background-color: #6b96b3;
+        }
+        .container a {
+            display: block;
+            margin-top: 15px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .container a:hover {
+            text-decoration: underline;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .logo-container {
+            margin-bottom: 20px;
+        }
+        .logo-container img {
+            width: 160px;
+        }
+        .toggle-link {
+            margin-top: 20px;
+            color: #0099ff;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="loginContainer">
+        <div class="logo-container">
+            <img src="abc.png" alt="Healthcare Logo"/>
+        </div>
+        <h2>Recruitee Login</h2>
+        <form id="loginForm">
+            <input type="text" id="loginUsername" placeholder="Username" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <a href="#">Forgot Password?</a>
+        <div id="loginErrorMessage" class="error"></div>
+        <p class="toggle-link" onclick="toggleForm('signup')">Don't have an account? Sign Up</p>
+    </div>
+
+    <div class="container" id="signupContainer" style="display: none;">
+        <div class="logo-container">
+            <img src="https://cdn-icons-png.flaticon.com/512/6456/6456170.png" alt="Healthcare Logo">
+        </div>
+        <h2>New Recruitment Sign Up</h2>
+        <form id="signupForm">
+            <input type="text" id="signupUsername" placeholder="Username" required>
+            <input type="email" id="signupEmail" placeholder="Email" required>
+            <input type="password" id="signupPassword" placeholder="Password" required>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div id="signupErrorMessage" class="error"></div>
+        <p class="toggle-link" onclick="toggleForm('login')">Already have an account? Log In</p>
+    </div>
+
+    <script>
+        function toggleForm(form) {
+            if (form === 'signup') {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('signupContainer').style.display = 'block';
+            } else {
+                document.getElementById('loginContainer').style.display = 'block';
+                document.getElementById('signupContainer').style.display = 'none';
+            }
+        }
+
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById("loginUsername").value;
+            const password = document.getElementById("loginPassword").value;
+
+            // Placeholder for authentication logic
+            if (username === "user123" && password === "pass123") {
+                alert("Login successful!");
+                window.location.href = "recrprofile.html";
+            } else {
+                document.getElementById("loginErrorMessage").textContent = "Invalid username or password.";
+            }
+        });
+
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById("signupUsername").value;
+            const email = document.getElementById("signupEmail").value;
+            const password = document.getElementById("signupPassword").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+                document.getElementById("signupErrorMessage").textContent = "Passwords do not match.";
+                return;
+            }
+
+            // Placeholder for sign-up logic
+            alert("Sign-up successful! Please log in.");
+            toggleForm('login');
+        });
+    </script>
+</body>
+</html>
